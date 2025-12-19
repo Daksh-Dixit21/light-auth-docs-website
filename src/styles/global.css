@@ -1,0 +1,179 @@
+:root {
+  /* Minimalist Theme Palette - VITE INSPIRED DARK THEME */
+  --bg-main: #0a0a0c; 
+  --bg-card: #161618;
+  --bg-subtle: #1e1e20;
+  
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+
+  /* Brand Colors */
+  --color-brand: #646cff; /* Vite Blue-ish Purple */
+  --color-brand-light: #747bff;
+  --color-brand-dark: #535bf2;
+
+  --border-light: #2e2e32;
+  --border-active: #3e3e42;
+
+  --nav-height: 64px;
+  --max-width: 1600px; /* Wider container for docs */
+  --sidebar-width: 280px;
+}
+
+[data-theme="light"] {
+  --bg-main: #ffffff;
+  --bg-card: #ffffff;
+  --bg-subtle: #f9fafb;
+
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --text-muted: #9ca3af;
+
+  --border-light: #e5e7eb;
+
+  /* RGB values for rgba() functions in light mode */
+  --bg-card-rgb: 255, 255, 255;
+  --border-light-rgb: 229, 231, 235;
+  --text-primary-rgb: 17, 24, 39;
+  --text-secondary-rgb: 75, 85, 99;
+}
+
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.2s, color 0.2s;
+  overflow-x: hidden; /* Prevent horizontal scroll on body */
+  position: relative;
+  width: 100%;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-top: 2em;
+  margin-bottom: 0.75em;
+}
+
+h1 { font-size: 2.5rem; margin-top: 0; font-weight: 700; }
+h2 { font-size: 1.75rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5rem; }
+h3 { font-size: 1.35rem; }
+h4 { font-size: 1.1rem; }
+
+p { margin-bottom: 1.25rem; color: var(--text-secondary); }
+
+a {
+  color: var(--color-brand);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+a:hover {
+  color: var(--color-brand-light);
+  text-decoration: underline;
+}
+
+ul, ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+  color: var(--text-secondary);
+}
+li { margin-bottom: 0.5rem; }
+
+code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9em;
+  background: var(--bg-subtle);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  color: var(--color-brand-light);
+}
+
+/* Utils */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.glass {
+  background: var(--bg-main);
+  border-bottom: 1px solid var(--border-light);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--border-light);
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
+/* Button Styles */
+button { font-family: inherit; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.btn-brand {
+  background-color: var(--color-brand);
+  color: #ffffff !important; 
+}
+.btn-brand:hover {
+  background-color: var(--color-brand-light);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: var(--bg-subtle);
+  color: var(--text-primary);
+  border: 1px solid var(--border-light);
+}
+.btn-secondary:hover {
+  background-color: var(--border-light);
+  border-color: var(--text-secondary);
+  color: var(--text-primary);
+}
