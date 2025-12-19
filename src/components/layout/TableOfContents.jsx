@@ -65,7 +65,6 @@ export default function TableOfContents({ contentRef }) {
                             }}
                             style={{
                                 display: 'block',
-                                paddingLeft: '1rem',
                                 paddingTop: '0.25rem',
                                 paddingBottom: '0.25rem',
                                 fontSize: '0.85rem',

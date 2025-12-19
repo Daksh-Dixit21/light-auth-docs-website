@@ -13,15 +13,74 @@ const getPageTitle = (pathname) => {
         '/docs': 'Introduction',
         '/docs/quick-start': 'Quick Start',
         '/docs/configuration': 'Configuration',
-        // ... add others or use regex
+        '/docs/env-vars': 'Environment Vars',
+        '/docs/api-reference': 'API Reference',
+        '/docs/email-features': 'Email & OTP',
+        '/docs/use-cases/rbac': 'RBAC System',
+        '/docs/security': 'Security Logic',
+        '/docs/use-cases/mobile': 'Mobile Auth',
+        '/docs/use-cases/microservices': 'Microservices',
+        '/docs/hooks': 'Lifecycle Hooks',
+        '/docs/error-handling': 'Error Handling'
     };
     return map[pathname] || 'Documentation';
+};
+
+// Get next page in sequence
+const getNextPage = (currentPath) => {
+    const pages = [
+        '/docs',
+        '/docs/quick-start',
+        '/docs/configuration',
+        '/docs/env-vars',
+        '/docs/api-reference',
+        '/docs/email-features',
+        '/docs/use-cases/rbac',
+        '/docs/security',
+        '/docs/use-cases/mobile',
+        '/docs/use-cases/microservices',
+        '/docs/hooks',
+        '/docs/error-handling'
+    ];
+    
+    const currentIndex = pages.indexOf(currentPath);
+    if (currentIndex === -1 || currentIndex === pages.length - 1) {
+        return null; // No next page
+    }
+    
+    const nextPath = pages[currentIndex + 1];
+    return {
+        path: nextPath,
+        title: getPageTitle(nextPath),
+        description: getPageDescription(nextPath)
+    };
+};
+
+// Helper for descriptions
+const getPageDescription = (pathname) => {
+    const descriptions = {
+        '/docs': 'Welcome to Light-Auth and get started with the basics.',
+        '/docs/quick-start': 'Set up your first authentication in minutes.',
+        '/docs/configuration': 'Learn how to configure Light-Auth for your needs.',
+        '/docs/env-vars': 'Understand environment variables and their usage.',
+        '/docs/api-reference': 'Deep dive into all available functions and middleware.',
+        '/docs/email-features': 'Explore email verification and OTP functionality.',
+        '/docs/use-cases/rbac': 'Implement role-based access control in your app.',
+        '/docs/security': 'Learn about security features and best practices.',
+        '/docs/use-cases/mobile': 'Set up authentication for mobile applications.',
+        '/docs/use-cases/microservices': 'Use Light-Auth in microservices architecture.',
+        '/docs/hooks': 'Customize behavior with lifecycle hooks.',
+        '/docs/error-handling': 'Handle errors and edge cases effectively.'
+    };
+    return descriptions[pathname] || 'Continue your learning journey.';
 };
 
 export default function DocsLayout() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const location = useLocation();
     const contentRef = useRef(null);
+
+    const nextPage = getNextPage(location.pathname);
 
     // Scroll to top on route change
     useEffect(() => {
@@ -125,18 +184,33 @@ export default function DocsLayout() {
                                 <div style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginTop: '0.5rem' }}>Get help from the community or report a bug.</div>
                             </a>
 
-                            <Link to="/docs/api-reference" style={{
-                                padding: '1.5rem',
-                                background: 'var(--bg-subtle)',
-                                border: '1px solid var(--border-light)',
-                                borderRadius: '12px',
-                                textDecoration: 'none',
-                                transition: 'border-color 0.2s'
-                            }} onMouseEnter={(e) => e.currentTarget.style.borderColor = 'var(--color-brand)'} onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--border-light)'}>
-                                <div style={{ fontSize: '0.85rem', color: 'var(--color-brand)', fontWeight: 600, marginBottom: '0.5rem' }}>NEXT</div>
-                                <div style={{ fontSize: '1.1rem', color: 'var(--text-primary)', fontWeight: 600 }}>API Reference</div>
-                                <div style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginTop: '0.5rem' }}>Deep dive into all available functions and middleware.</div>
-                            </Link>
+                            {nextPage ? (
+                                <Link to={nextPage.path} style={{
+                                    padding: '1.5rem',
+                                    background: 'var(--bg-subtle)',
+                                    border: '1px solid var(--border-light)',
+                                    borderRadius: '12px',
+                                    textDecoration: 'none',
+                                    transition: 'border-color 0.2s'
+                                }} onMouseEnter={(e) => e.currentTarget.style.borderColor = 'var(--color-brand)'} onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--border-light)'}>
+                                    <div style={{ fontSize: '0.85rem', color: 'var(--color-brand)', fontWeight: 600, marginBottom: '0.5rem' }}>NEXT</div>
+                                    <div style={{ fontSize: '1.1rem', color: 'var(--text-primary)', fontWeight: 600 }}>{nextPage.title}</div>
+                                    <div style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginTop: '0.5rem' }}>{nextPage.description}</div>
+                                </Link>
+                            ) : (
+                                <a href="https://github.com/Daksh-Dixit21/light-auth" target="_blank" rel="noopener noreferrer" style={{
+                                    padding: '1.5rem',
+                                    background: 'var(--bg-subtle)',
+                                    border: '1px solid var(--border-light)',
+                                    borderRadius: '12px',
+                                    textDecoration: 'none',
+                                    transition: 'border-color 0.2s'
+                                }} onMouseEnter={(e) => e.currentTarget.style.borderColor = 'var(--color-brand)'} onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--border-light)'}>
+                                    <div style={{ fontSize: '0.85rem', color: 'var(--color-brand)', fontWeight: 600, marginBottom: '0.5rem' }}>EXPLORE</div>
+                                    <div style={{ fontSize: '1.1rem', color: 'var(--text-primary)', fontWeight: 600 }}>GitHub Repository</div>
+                                    <div style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginTop: '0.5rem' }}>Check out the source code and contribute.</div>
+                                </a>
+                            )}
                         </div>
                     </div>
                 </div>
