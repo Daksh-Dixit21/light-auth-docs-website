@@ -10,12 +10,12 @@ export default function Configuration() {
             </div>
 
             <p>
-                The <code>setupAuth</code> function is the heart of Light-Auth. It takes two arguments: your Express app instance and a configuration object.
+                The <code>setupAuth</code> function is the heart of Light-Auth. It takes two arguments: your Express app instance and a configuration object.   
             </p>
 
-            <div style={{ 
-                padding: '1.5rem', 
-                background: 'rgba(239, 68, 68, 0.05)', 
+            <div style={{
+                padding: '1.5rem',
+                background: 'rgba(239, 68, 68, 0.05)',
                 borderLeft: '4px solid #ef4444',
                 borderRadius: '8px',
                 margin: '2rem 0'
@@ -31,7 +31,7 @@ export default function Configuration() {
                 </p>
             </div>
 
-            <CodeBlock language="javascript" code={`// Minimal setup example
+            <CodeBlock language="javascript" code={`// Minimal setup example    
 await setupAuth(app, {
   db: mongoose.connection,
   jwtSecret: 'your_very_secure_and_long_secret_key',
@@ -54,6 +54,9 @@ await setupAuth(app, {
   User: null,             // "default" or a Mongoose Model
 
   // Security
+  security: {
+    helmet: true          // Automatically enable helmet() middleware
+  },
   passwordPolicy: {
     minLength: 8,
     requireUppercase: false,
@@ -77,18 +80,18 @@ await setupAuth(app, {
   },
 
   // Token Settings
-  jwtConfig: { 
-    expiresIn: "1h" 
+  jwtConfig: {
+    expiresIn: "1h"
   },
 
   // Session Settings (only if useSession: true)
   sessionConfig: {
     resave: false,
     saveUninitialized: false,
-    cookie: { 
+    cookie: {
       secure: false, // Auto-set to true in Production
-      httpOnly: true, 
-      sameSite: "lax" 
+      httpOnly: true,
+      sameSite: "lax"
     },
     store: null // Optional: connect-mongo store
   },
@@ -101,7 +104,7 @@ await setupAuth(app, {
     otpExpiryMinutes: 5,
     sendMail: async ({ email, otp, type, url }) => { /* ... */ }
   },
-  
+
   forgotPassword: {
     enabled: false,
     otpLength: 6,
@@ -150,8 +153,15 @@ await setupAuth(app, {
                             </td>
                         </tr>
                         <tr>
+                            <td><code>security</code></td>
+                            <td><span className="badge">Object</span></td>      
+                            <td>
+                                Configure core security middleware. Currently supports <code>helmet</code> (default: true).
+                            </td>
+                        </tr>
+                        <tr>
                             <td><code>useSession</code></td>
-                            <td><span className="badge">Boolean</span></td>
+                            <td><span className="badge">Boolean</span></td>     
                             <td>
                                 <code>false</code> (default) = Stateless JWTs. Great for Mobile/APIs.<br />
                                 <code>true</code> = Stateful Sessions (HttpOnly Cookie). Great for Web Apps.
@@ -159,12 +169,12 @@ await setupAuth(app, {
                         </tr>
                         <tr>
                             <td><code>route</code></td>
-                            <td><span className="badge">String</span></td>
+                            <td><span className="badge">String</span></td>      
                             <td>The base path for all authentication routes. Default is <code>"/auth"</code>.</td>
                         </tr>
                         <tr>
                             <td><code>hooks</code></td>
-                            <td><span className="badge">Object</span></td>
+                            <td><span className="badge">Object</span></td>      
                             <td>Event listeners for extending functionality. See <a href="/docs/hooks">Lifecycle Hooks</a>.</td>
                         </tr>
                     </tbody>

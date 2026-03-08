@@ -10,8 +10,8 @@ export default function APIReference() {
             </div>
 
             <p>
-                Light-Auth exposes a set of REST endpoints and Express middleware. 
-                This guide details the request shapes and response codes.
+                Light-Auth exposes a set of REST endpoints and Express middleware.
+                This guide details the request shapes and response codes.       
             </p>
 
             <hr style={{ borderColor: 'var(--border-light)', margin: '2rem 0' }} />
@@ -19,14 +19,15 @@ export default function APIReference() {
             <h2>HTTP Endpoints</h2>
             <p className="text-sm text-muted">Base URL defaults to <code>/auth</code> unless configured otherwise.</p>
 
-            <Endpoint 
-                method="POST" 
-                path="/register" 
-                desc="Creates a new user account."
+            <Endpoint
+                method="POST"
+                path="/register"
+                desc="Creates a new user account. Supports custom fields (name, age, etc.) automatically if they are in your Mongoose schema."
                 body={`{
   "email": "user@example.com",
   "password": "strongPassword123!",
-  "role": "user" // optional, defaults to 'user'
+  "role": "user", // optional, defaults to 'user'
+  "name": "John Doe" // extra fields are allowed!
 }`}
                 responses={[
                     { code: 201, desc: "User created successfully" },
@@ -35,9 +36,9 @@ export default function APIReference() {
                 ]}
             />
 
-            <Endpoint 
-                method="POST" 
-                path="/login" 
+            <Endpoint
+                method="POST"
+                path="/login"
                 desc="Authenticates a user and returns a token or sets a session cookie."
                 body={`{
   "email": "user@example.com",
@@ -46,14 +47,14 @@ export default function APIReference() {
                 responses={[
                     { code: 200, desc: "Success. Returns { token, user } (JWT) or { user } (Session)" },
                     { code: 401, desc: "Invalid credentials" },
-                    { code: 403, desc: "Email not verified (if configured)" },
-                    { code: 429, desc: "Too many attempts (Rate Limit)" }
+                    { code: 403, desc: "Email not verified (if configured)" },  
+                    { code: 429, desc: "Too many attempts (Rate Limit)" }       
                 ]}
             />
 
-            <Endpoint 
-                method="POST" 
-                path="/logout" 
+            <Endpoint
+                method="POST"
+                path="/logout"
                 desc="Destroys the session (if using sessions). Client should discard token."
                 responses={[
                     { code: 200, desc: "Logged out successfully" }
@@ -63,7 +64,7 @@ export default function APIReference() {
             <hr style={{ borderColor: 'var(--border-light)', margin: '3rem 0' }} />
 
             <h2>Middleware</h2>
-            <p>Import these from the returned <code>auth</code> object.</p>
+            <p>Import these from the returned <code>auth</code> object.</p>     
 
             <div style={{ marginBottom: '2rem' }}>
                 <h3 style={{ fontFamily: 'monospace', color: 'var(--color-brand)' }}>auth.authenticate</h3>
@@ -71,10 +72,10 @@ export default function APIReference() {
                     Validates the request's identity.
                 </p>
                 <ul>
-                    <li><strong>JWT Mode:</strong> Checks for <code>Authorization: Bearer &lt;token&gt;</code> header. verifies signature and expiration.</li>
+                    <li><strong>JWT Mode:</strong> Checks for <code>Authorization: Bearer &lt;token&gt;</code> header. verifies signature and expiration.</li>  
                     <li><strong>Session Mode:</strong> Checks for a valid, unexpired session cookie.</li>
                 </ul>
-                <p><strong>On Success:</strong> Attaches <code>req.user</code> containing <code>{'{ id, role, email }'}</code>.</p>
+                <p><strong>On Success:</strong> Attaches <code>req.user</code> containing <code>{'{ id, role, email }'}</code> and any extra fields from your <code>onLogin</code> hook.</p>
                 <p><strong>On Failure:</strong> Returns <code>401 Unauthorized</code>.</p>
             </div>
 
@@ -95,7 +96,7 @@ function Endpoint({ method, path, desc, body, responses }) {
     return (
         <div style={{ marginBottom: '3rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
-                <span style={{ 
+                <span style={{
                     background: method === 'GET' ? '#0ea5e9' : method === 'POST' ? '#10b981' : '#f59e0b',
                     color: '#000',
                     fontWeight: 700,
@@ -106,7 +107,7 @@ function Endpoint({ method, path, desc, body, responses }) {
                 <code style={{ fontSize: '1.1rem', fontWeight: 600 }}>{path}</code>
             </div>
             <p style={{ marginBottom: '1rem', color: 'var(--text-secondary)' }}>{desc}</p>
-            
+
             {body && (
                 <div style={{ marginBottom: '1rem' }}>
                     <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.25rem', fontWeight: 600 }}>REQUEST BODY</div>

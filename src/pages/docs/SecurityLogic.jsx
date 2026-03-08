@@ -10,7 +10,7 @@ export default function SecurityLogic() {
             </div>
 
             <p>
-                Security is often opaque. We believe it should be transparent. 
+                Security is often opaque. We believe it should be transparent.  
                 Here is exactly how Light-Auth protects your application and your users' data under the hood.
             </p>
 
@@ -48,7 +48,7 @@ export default function SecurityLogic() {
 
             <h2>3. Safe-Compare for OTPs</h2>
             <p>
-                When validating an OTP, a naive string comparison (<code>token === input</code>) is vulnerable to <strong>Timing Attacks</strong>. 
+                When validating an OTP, a naive string comparison (<code>token === input</code>) is vulnerable to <strong>Timing Attacks</strong>.
                 An attacker can measure how long the server takes to respond to guess the token character by character.
             </p>
             <p>
@@ -60,48 +60,49 @@ export default function SecurityLogic() {
 export function isOTPValid(stored, expiry, input) {
   // 1. Expiry check (fast fail)
   if (Date.now() > new Date(expiry).getTime()) return false;
-  
+
   const bufferA = Buffer.from(stored);
   const bufferB = Buffer.from(input);
 
   // 2. Constant-time comparison
   // This prevents remote timing attacks
-  return bufferA.length === bufferB.length && 
+  return bufferA.length === bufferB.length &&
          crypto.timingSafeEqual(bufferA, bufferB);
 }
             `} />
 
             <h2>4. Secure Headers (Helmet)</h2>
             <p>
-                We automatically mount <code>helmet()</code> middleware. This sets various HTTP headers to protect against common web vulnerabilities:
+                By default, we automatically mount <code>helmet()</code> middleware. This sets various HTTP headers to protect against common web vulnerabilities.
+                You can disable this by setting <code>security: { '{ helmet: false }' }</code> in your configuration.
             </p>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginTop: '1rem' }}>
-                <SecurityCard 
-                    title="X-Frame-Options" 
+                <SecurityCard
+                    title="X-Frame-Options"
                     desc="Prevents Clickjacking by disallowing your site to be rendered in an iframe."
                 />
-                <SecurityCard 
-                    title="X-XSS-Protection" 
+                <SecurityCard
+                    title="X-XSS-Protection"
                     desc="Mitigates Cross-Site Scripting (XSS) in older browsers."
                 />
-                <SecurityCard 
-                    title="HSTS" 
+                <SecurityCard
+                    title="HSTS"
                     desc="Strict-Transport-Security enforces HTTPS connections exclusively."
                 />
-                <SecurityCard 
-                    title="X-Content-Type" 
+                <SecurityCard
+                    title="X-Content-Type"
                     desc="Prevents MIME-sniffing vulnerabilities."
                 />
             </div>
 
             <h2>5. Rate Limiting</h2>
             <p>
-                To prevent automated brute-force attacks, we include <code>express-rate-limit</code>. 
+                To prevent automated brute-force attacks, we include <code>express-rate-limit</code>.
                 Our default policy is strict but fair:
             </p>
             <ul>
                 <li><strong>Login:</strong> 5 attempts per 15 minutes per IP.</li>
-                <li><strong>Register:</strong> 5 attempts per hour per IP.</li>
+                <li><strong>Register:</strong> 5 attempts per hour per IP.</li> 
             </ul>
             <p>These values are fully customizable in your configuration object.</p>
 

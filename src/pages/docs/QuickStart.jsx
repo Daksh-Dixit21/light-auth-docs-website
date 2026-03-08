@@ -38,6 +38,7 @@ const { auth } = await setupAuth(app, {
   jwtSecret: process.env.JWT_SECRET,
   roles: ["admin", "user"],
   User: "default", // or pass your custom model
+  // security: { helmet: true }, // Optional: enabled by default
 });
 
 // 3. Start Server
@@ -46,7 +47,7 @@ app.listen(3000, () => console.log("Server running"));
 
       <h3>3. Protect a Route</h3>
       <p>
-        Use the returned <code>auth</code> object to gate your endpoints.
+        Use the returned <code>auth</code> object to gate your endpoints.       
       </p>
 
       <CodeBlock code={`
@@ -54,7 +55,7 @@ app.listen(3000, () => console.log("Server running"));
 app.get("/", (req, res) => res.send("Hello World"));
 
 // Protected route
-app.get("/dashboard", 
+app.get("/dashboard",
   auth.authenticate,          // 1. Verifies Token/Session
   auth.authorize(["admin"]),  // 2. Checks if role is 'admin'
   (req, res) => {
