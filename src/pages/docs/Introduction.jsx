@@ -1,5 +1,6 @@
 import React from 'react';
 import CodeBlock from '../../components/ui/CodeBlock';
+import CliPreview from '../../components/ui/CliPreview';
 
 export default function Introduction() {
     return (
@@ -11,8 +12,17 @@ export default function Introduction() {
             
             <p style={{ fontSize: '1.25rem', color: 'var(--text-secondary)', marginBottom: '2.5rem', lineHeight: 1.6 }}>
                 Security shouldn't require a Ph.D. <br/>
-                Light-Auth is designed to be the <strong>complete engine</strong> for Express.js authentication—giving you Sessions, JWTs, and RBAC without the complexity of legacy libraries or the cost of external services.
+                Light-Auth is designed to be the <strong>complete engine</strong> for Express.js authentication, giving you Sessions, JWTs, and RBAC without the complexity of legacy libraries or the cost of external services.
             </p>
+
+            <h2>Start with the CLI</h2>
+            <p>
+                The fastest way to add Light-Auth to an Express project is the interactive initializer. It asks what kind of auth you want, generates an auth config file, reuses or creates a Mongoose user model, and appends the required environment variables.
+            </p>
+
+            <CodeBlock language="bash" code={`npx @daksh-dev/light-auth init`} />
+
+            <CliPreview />
 
             <div style={{ padding: '2rem', background: 'rgba(62, 207, 142, 0.05)', borderRadius: '12px', border: '1px solid rgba(62, 207, 142, 0.2)', marginBottom: '3rem' }}>
                 <h3 style={{ margin: 0, marginBottom: '1.5rem', color: 'var(--color-brand)' }}>The Philosophy</h3>
@@ -40,6 +50,9 @@ export default function Introduction() {
             <ul>
                 <li><strong>Dynamic Router:</strong> Pre-built routes for <code>/login</code>, <code>/register</code>, and <code>/logout</code>.</li>
                 <li><strong>Email Engine:</strong> Integrated OTP flows for verification and password resets.</li>
+                <li><strong>OAuth2 Support:</strong> Built-in social logins for Google, GitHub, and more.</li>
+                <li><strong>Interactive Docs:</strong> Automatically generated FastAPI-style Swagger UI at <code>/docs</code>.</li>
+                <li><strong>CLI Scaffolding:</strong> Rapidly initialize light-auth into any project using <code>npx @daksh-dev/light-auth init</code>.</li>
                 <li><strong>RBAC Middleware:</strong> A clean <code>authorize(['admin'])</code> syntax for role-based access.</li>
                 <li><strong>User Management:</strong> Automatic user model generation or integration with your existing Mongoose models.</li>
             </ul>

@@ -149,13 +149,13 @@ export default function DocsLayout() {
                                 <SidebarGroup title="Core Concepts">
                                     <NavItem to="/docs/api-reference">API Reference</NavItem>
                                     <NavItem to="/docs/email-features">Email & OTP</NavItem>
-                                    <NavItem to="/docs/rbac">RBAC System</NavItem>
+                                    <NavItem to="/docs/use-cases/rbac">RBAC System</NavItem>
                                     <NavItem to="/docs/security">Security Logic</NavItem>
                                 </SidebarGroup>
 
                                 <SidebarGroup title="Guides">
-                                    <NavItem to="/docs/mobile">Mobile Auth (JWT)</NavItem>
-                                    <NavItem to="/docs/microservices">Microservices</NavItem>
+                                    <NavItem to="/docs/use-cases/mobile">Mobile Auth (JWT)</NavItem>
+                                    <NavItem to="/docs/use-cases/microservices">Microservices</NavItem>
                                     <NavItem to="/docs/hooks">Lifecycle Hooks</NavItem>
                                     <NavItem to="/docs/error-handling">Error Handling</NavItem>
                                 </SidebarGroup>

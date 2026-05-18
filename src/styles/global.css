@@ -3,7 +3,7 @@
   --bg-main: #0a0a0c; 
   --bg-card: #161618;
   --bg-subtle: #1e1e20;
-  
+
   --text-primary: #ffffff;
   --text-secondary: #a1a1aa;
   --text-muted: #71717a;
@@ -160,7 +160,7 @@ button { font-family: inherit; }
 
 .btn-brand {
   background-color: var(--color-brand);
-  color: #ffffff !important; 
+  color: #ffffff !important;
 }
 .btn-brand:hover {
   background-color: var(--color-brand-light);

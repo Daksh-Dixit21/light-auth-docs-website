@@ -18,8 +18,6 @@ import RBACUseCase from './pages/docs/RBACUseCase';
 
 import { ThemeProvider } from './context/ThemeContext';
 
-import EnvConfig from './pages/docs/EnvConfig';
-
 function App() {
   return (
     <ThemeProvider>
@@ -30,8 +28,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Landing />} />
 
-              {/* Documentation Routes */}
-              <Route path="/docs" element={<DocsLayout />}>
+              {/* Documentation Routes */}              <Route path="/docs" element={<DocsLayout />}>
                 <Route index element={<Introduction />} />
                 <Route path="quick-start" element={<QuickStart />} />
                 <Route path="configuration" element={<Configuration />} />
@@ -46,7 +43,7 @@ function App() {
                 {/* Use Cases */}
                 <Route path="use-cases/rbac" element={<RBACUseCase />} />
                 <Route path="use-cases/mobile" element={<MobileAuth />} />
-                <Route path="use-cases/microservices" element={<Microservices />} />
+                <Route path="use-cases/microservices" element={<Microservices />} />     
                 <Route path="env-vars" element={<EnvironmentVars />} />
               </Route>
             </Routes>

@@ -35,7 +35,7 @@ export default function Navbar() {
                     </div>
 
                     <a href="https://www.npmjs.com/package/@daksh-dev/light-auth" target="_blank" rel="noopener noreferrer" className="btn-sm-primary">
-                        npm v1.0
+                        npm v1.1.0
                     </a>
                 </div>
 
@@ -61,6 +61,7 @@ export default function Navbar() {
             >
                 <div className="container" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', padding: '2rem' }}>
                     <Link to="/docs" className="mobile-link" style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-primary)', textAlign: 'left' }}>Documentation</Link>
+                    <Link to="/templates" className="mobile-link" style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-primary)', textAlign: 'left' }}>Templates</Link>
                     <Link to="/docs/quick-start" className="mobile-link" style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-primary)', textAlign: 'left' }}>Quick Start</Link>
                     <Link to="/docs/configuration" className="mobile-link" style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-primary)', textAlign: 'left' }}>Configuration</Link>
 
@@ -226,3 +227,4 @@ function SocialIcon({ href, icon, label }) {
         </a>
     );
 }
+

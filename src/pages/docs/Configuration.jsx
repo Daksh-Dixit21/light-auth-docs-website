@@ -65,6 +65,17 @@ await setupAuth(app, {
     requireSymbols: false
   },
 
+  hashing: {
+    algorithm: "bcrypt"   // Or "argon2" for modern security
+  },
+
+  // Third-party Auth
+  oauth: {
+    providers: {}         // Configure Google, GitHub, etc.
+  },
+
+  enableDocs: process.env.NODE_ENV !== "production", // Generates Swagger UI at /route/docs
+
   // Traffic Control
   rateLimiting: {
     login: {
@@ -165,6 +176,27 @@ await setupAuth(app, {
                             <td>
                                 <code>false</code> (default) = Stateless JWTs. Great for Mobile/APIs.<br />
                                 <code>true</code> = Stateful Sessions (HttpOnly Cookie). Great for Web Apps.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><code>hashing</code></td>
+                            <td><span className="badge">Object</span></td>      
+                            <td>
+                                Specify your preferred hashing algorithm. Supports <code>algorithm: "argon2"</code> or <code>"bcrypt"</code> (default).
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><code>enableDocs</code></td>
+                            <td><span className="badge">Boolean</span></td>      
+                            <td>
+                                If <code>true</code>, automatically generates an interactive Swagger API documentation at <code>/auth/docs</code>.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><code>oauth</code></td>
+                            <td><span className="badge">Object</span></td>      
+                            <td>
+                                Configure OAuth2 providers for social logins (e.g. Google, GitHub).
                             </td>
                         </tr>
                         <tr>

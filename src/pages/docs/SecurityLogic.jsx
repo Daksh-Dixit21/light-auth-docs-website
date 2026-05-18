@@ -22,9 +22,9 @@ export default function SecurityLogic() {
                 <div style={{ marginBottom: '1rem', display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
                     <div style={{ fontSize: '1.5rem' }}>🛡️</div>
                     <div>
-                        <strong>Bcrypt (Salt Rounds: 12)</strong><br/>
+                        <strong>Argon2 & Bcrypt (Dual Support)</strong><br/>
                         <p style={{ margin: '0.5rem 0 0', fontSize: '0.95rem', color: 'var(--text-secondary)' }}>
-                            Passwords are never stored in plain text. We use <code>bcryptjs</code> with 12 rounds of salting, making it extremely resilient to rainbow table and brute-force attacks.
+                            Passwords are never stored in plain text. We natively support <strong>Argon2</strong> (the modern standard) for state-of-the-art security, with an automatic fallback to <code>bcryptjs</code> (12 salt rounds) to maintain backward compatibility and support environments where Argon2 cannot be compiled.
                         </p>
                     </div>
                 </div>
@@ -105,6 +105,15 @@ export function isOTPValid(stored, expiry, input) {
                 <li><strong>Register:</strong> 5 attempts per hour per IP.</li> 
             </ul>
             <p>These values are fully customizable in your configuration object.</p>
+
+            <h2>6. Input Validation & NoSQL Injection Protection</h2>
+            <p>
+                A core part of our security upgrade is strict parameter sanitization. By enforcing strict type validations and sanitizing inputs, Light-Auth eliminates entire classes of vulnerabilities, including <strong>NoSQL Injection</strong>.
+            </p>
+            <ul>
+                <li><strong>Request Body Sanitization:</strong> All input fields (e.g., email, password) are strictly validated before database querying to ensure they contain safe scalar types (strings), rejecting any malicious objects or operators (like <code>$gt</code>, <code>$ne</code>).</li>
+                <li><strong>Data Integrity:</strong> Express-validator ensures that malformed payloads are rejected early in the request lifecycle, saving database compute and mitigating potential injection attacks.</li>
+            </ul>
 
             <style>{`
                 .security-card {
